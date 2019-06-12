@@ -1,34 +1,27 @@
 package app;
 
-import static java.lang.String.format;
-
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.apache.log4j.Logger;
-import utils.Utils;
+import utils.Message;
 
 /**
  * Singleton class used as bicycle store.
  */
 public class SysAdmin {
 
-  private static final String CONFIG_FILE = Utils.RESOURCES_PATH + "config";
-
   private static Logger logger = Logger.getLogger(SysAdmin.class);
 
-  private static SysAdmin ourInstance = new SysAdmin();
+  private static SysAdmin ourInstance;
 
   private List<Bike> bikes;
 
-  private SysAdmin() {
-    String bikesQty = Utils.getValueFromPropertieFile(CONFIG_FILE, "STOCK");
-    loadStock(Integer.parseInt(
-        Objects.requireNonNull(bikesQty)));
+  private SysAdmin(int totalBikes) {
+    loadStock(totalBikes);
   }
 
   private void loadStock(int availableBikes) {
@@ -36,9 +29,9 @@ public class SysAdmin {
     IntStream.range(0, availableBikes).forEach(bike -> bikes.add(new Bike()));
   }
 
-  public static SysAdmin getInstance() {
+  public static SysAdmin getInstance(int totalBikes) {
     if (null == ourInstance) {
-      ourInstance = new SysAdmin();
+      ourInstance = new SysAdmin(totalBikes);
     }
     return ourInstance;
   }
@@ -50,13 +43,27 @@ public class SysAdmin {
   }
 
   public void publishReturnDate() {
-    List<Bike> rentedBikes = bikes.stream()
-        .filter(bike -> !bike.getAvailability())
-        .collect(Collectors.toList());
-    for (Bike bike : rentedBikes) {
-      Date asDate = Date.from(bike.getReturnDate().atZone(ZoneId.systemDefault()).toInstant());
-      logger.info(format("This bike will be returned in: %s", asDate.toString()));
+    List<Bike> rentedBikes = getRentedBikes();
+    if (!rentedBikes.isEmpty()) {
+      for (Bike bike : rentedBikes) {
+        Date asDate = Date.from(bike.getReturnDate().atZone(ZoneId.systemDefault()).toInstant());
+        logger.info(String.format("%s%s", Message.RETURN_INFO_MSG, asDate.toString()));
+      }
     }
+  }
+
+  private List<Bike> getRentedBikes() {
+    return bikes.stream()
+          .filter(bike -> !bike.getAvailability())
+          .collect(Collectors.toList());
+  }
+
+  public List<Bike> getBikes(){
+    return this.bikes;
+  }
+
+  public static void reset() {
+    ourInstance = null;
   }
 
 }

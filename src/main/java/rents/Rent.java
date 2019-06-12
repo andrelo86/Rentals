@@ -8,16 +8,16 @@ import utils.Utils;
 
 public abstract class Rent {
 
-  protected static Logger logger = null;
-
   private static final String RATES_FILE = Utils.RESOURCES_PATH + "config";
 
+  protected static Logger logger = null;
+
   protected Double byHour = Double.valueOf(
-      Objects.requireNonNull(Utils.getValueFromPropertieFile(RATES_FILE, "RATE_BY_HOUR")));
+      Objects.requireNonNull(Utils.getValueFromPropertiesFile(RATES_FILE, "RATE_BY_HOUR")));
   protected Double byDay = Double
-      .valueOf(Objects.requireNonNull(Utils.getValueFromPropertieFile(RATES_FILE, "RATE_BY_DAY")));
+      .valueOf(Objects.requireNonNull(Utils.getValueFromPropertiesFile(RATES_FILE, "RATE_BY_DAY")));
   protected Double byWeek = Double
-      .valueOf(Objects.requireNonNull(Utils.getValueFromPropertieFile(RATES_FILE, "RATE_BY_WEEK")));
+      .valueOf(Objects.requireNonNull(Utils.getValueFromPropertiesFile(RATES_FILE, "RATE_BY_WEEK")));
 
   public Rent() {
   }

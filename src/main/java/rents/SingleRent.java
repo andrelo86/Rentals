@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.apache.log4j.Logger;
+import utils.Message;
 
 /**
  * Class to represent a single rent (1 bike) by hour day or week.
@@ -48,21 +49,16 @@ public class SingleRent extends Rent {
 
   @Override
   public Double rent(List<Bike> bikes) {
-    if (availableBike(bikes.size())) {
       LocalDateTime localDateTime = LocalDateTime.now();
       localDateTime = localDateTime.plus(time, timeType);
       try {
         Bike bike = Objects.requireNonNull(getFirstAvailableBike(bikes));
         bike.setReturnDate(localDateTime);
         bike.setAvailability(Boolean.FALSE);
-      } catch (NullPointerException np) {
-        logger.info("No bicycles available: " + np);
+        return time * rate;
+      } catch (NullPointerException nullPointerException) {
+        throw new NullPointerException(Message.NO_BICYCE_AVAILABLE_MSG + nullPointerException);
       }
-      return time * rate;
-    } else {
-      logger.info("Unfortunately we do not have bicycles available for Rent");
-      return null;
-    }
   }
 
   private Bike getFirstAvailableBike(List<Bike> bikes) {
@@ -72,7 +68,4 @@ public class SingleRent extends Rent {
         return bike.orElse(null);
   }
 
-  private boolean availableBike(int size) {
-    return size >= 1;
-  }
 }

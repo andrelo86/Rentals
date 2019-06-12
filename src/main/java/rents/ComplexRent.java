@@ -10,8 +10,11 @@ import promotions.FamilyPromotion;
  */
 public class ComplexRent extends Rent {
 
+  private static final String TOTAL = "Total: ";
+
   private List<Rent> rentableList;
   private FamilyPromotion promotion = new FamilyPromotion();
+
 
   ComplexRent(List<Rent> rentableList) {
     this.rentableList = rentableList;
@@ -25,10 +28,10 @@ public class ComplexRent extends Rent {
       total += singleRent.rent(bikes);
     }
     if (promotion.comply(rentableList)) {
-      logger.info(promotion.getMessage() + " " + "Total: " + total * promotion.getDiscount());
+      logger.info(promotion.getMessage() + " " + TOTAL + total * promotion.getDiscount());
       return total * promotion.getDiscount();
     } else {
-      logger.info("Total: " + total);
+      logger.info(TOTAL + total);
       return total;
     }
   }

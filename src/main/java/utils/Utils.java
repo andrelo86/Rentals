@@ -18,7 +18,7 @@ public class Utils {
   private Utils() {
   }
 
-  public static String getValueFromPropertieFile(String file, String key) {
+  public static String getValueFromPropertiesFile(String file, String key) {
     try (InputStream input = new FileInputStream(file)) {
 
       Properties prop = new Properties();
