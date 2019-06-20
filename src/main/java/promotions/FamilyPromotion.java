@@ -8,20 +8,26 @@ import utils.Utils;
 
 public class FamilyPromotion extends Promotion {
 
-  private int minRents = Integer.parseInt(
-      Objects.requireNonNull(
-          Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "MIN_RENTS")));
-  private int maxRents = Integer.parseInt(
-      Objects.requireNonNull(
-          Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "MAX_RENTS")));
-
-  private Double familyDiscount = Double.valueOf(
-      Objects.requireNonNull(
-          Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "FAMILY_PROMO")));
+  private Integer minRents;
+  private Integer maxRents;
+  private Double familyDiscount;
 
   public FamilyPromotion() {
     this.promotionType = "FAMILY_PROMO";
     this.message = Message.FAMILY_PROMOTION_MSG;
+    configurePromotion();
+  }
+
+  private void configurePromotion() {
+    this.minRents = Integer.parseInt(
+        Objects.requireNonNull(
+            Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "MIN_RENTS")));
+    this.maxRents = Integer.parseInt(
+        Objects.requireNonNull(
+            Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "MAX_RENTS")));
+    this.familyDiscount = Double.valueOf(
+        Objects.requireNonNull(
+            Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "FAMILY_PROMO")));
   }
 
 

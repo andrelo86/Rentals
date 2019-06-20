@@ -25,11 +25,20 @@ public class Utils {
 
       prop.load(input);
 
-      return prop.getProperty(key);
+      return returnKeyValue(key, prop);
 
     } catch (IOException ex) {
       logger.info("Cannot read from file: " + ex);
       return null;
+    }
+  }
+
+  private static String returnKeyValue(String key, Properties prop) {
+    try {
+      return prop.getProperty(key);
+    } catch (NullPointerException np){
+      logger.info("Property not found");
+      throw new NullPointerException();
     }
   }
 
