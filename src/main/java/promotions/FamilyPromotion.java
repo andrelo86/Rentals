@@ -6,11 +6,7 @@ import rents.Rent;
 import utils.Message;
 import utils.Utils;
 
-public class FamilyPromotion implements Criteria {
-
-  private static final String CONFIG_FILE = "config";
-  private static final String FAMILY_PROMO = "FAMILY_PROMO";
-  private static final String MESSAGE = Message.FAMILY_PROMOTION_MSG;
+public class FamilyPromotion extends Promotion {
 
   private int minRents = Integer.parseInt(
       Objects.requireNonNull(
@@ -21,12 +17,21 @@ public class FamilyPromotion implements Criteria {
 
   private Double familyDiscount = Double.valueOf(
       Objects.requireNonNull(
-          Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, FAMILY_PROMO)));
+          Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "FAMILY_PROMO")));
+
+  public FamilyPromotion() {
+    this.promotionType = "FAMILY_PROMO";
+    this.message = Message.FAMILY_PROMOTION_MSG;
+  }
 
 
   @Override
   public Boolean comply(List<Rent> rent) {
-    return rent.size() >= minRents && rent.size() <= maxRents;
+    return rentsQuantity(rent) >= minRents && rentsQuantity(rent) <= maxRents;
+  }
+
+  private int rentsQuantity(List<Rent> rent) {
+    return rent.size();
   }
 
   public Double getDiscount() {
@@ -34,7 +39,7 @@ public class FamilyPromotion implements Criteria {
   }
 
   public String getMessage() {
-    return MESSAGE;
+    return message;
   }
 
 }

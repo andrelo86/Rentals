@@ -1,11 +1,14 @@
-package app;
+package entities;
 
 import java.time.LocalDateTime;
 
 public class Bike {
 
-  private LocalDateTime returnDate;
+  private LocalDateTime returnDate = null;
   private Boolean availability = Boolean.TRUE;
+
+  public Bike() {
+  }
 
 
   public LocalDateTime getReturnDate() {

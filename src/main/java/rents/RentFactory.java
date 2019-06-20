@@ -5,7 +5,8 @@ import java.util.List;
 
 public class RentFactory {
 
-  private RentFactory(){}
+  private RentFactory() {
+  }
 
   public static SingleRent createSingleRent(Integer time, ChronoUnit timeType) {
     return new SingleRent(time, timeType);

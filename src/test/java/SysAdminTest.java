@@ -30,8 +30,8 @@ public class SysAdminTest {
     Rent singleRentByHour = RentFactory.createSingleRent(1, ChronoUnit.HOURS);
     Rent singleRentByWeek = RentFactory.createSingleRent(1, ChronoUnit.WEEKS);
 
-    singleRentByHour.rent(sysAdminTest.getAvailableBikes());
-    singleRentByWeek.rent(sysAdminTest.getAvailableBikes());
+    Double singleHourRentHour = singleRentByHour.rent(sysAdminTest.getAvailableBikes());
+    Double singleWeekRentHour = singleRentByWeek.rent(sysAdminTest.getAvailableBikes());
 
     int expectedAvailableBikes = 3;
     int sysAdminTestAvailableBikes = sysAdminTest.getAvailableBikes().size();
@@ -44,7 +44,7 @@ public class SysAdminTest {
   public void correctReturnBikeDateByHourTest() {
     Rent singleRentByHour = RentFactory.createSingleRent(1, ChronoUnit.HOURS);
 
-    singleRentByHour.rent(sysAdminTest.getAvailableBikes());
+    Double rentByHour = singleRentByHour.rent(sysAdminTest.getAvailableBikes());
 
     LocalDateTime nowLocalDateTime = LocalDateTime.now();
     LocalDateTime bikeReturnDate = sysAdminTest.getBikes().get(0).getReturnDate();
@@ -58,7 +58,7 @@ public class SysAdminTest {
   public void correctReturnBikeDateByDayTest() {
     Rent singleRentByDay = RentFactory.createSingleRent(1, ChronoUnit.DAYS);
 
-    singleRentByDay.rent(sysAdminTest.getAvailableBikes());
+    Double rentByDay = singleRentByDay.rent(sysAdminTest.getAvailableBikes());
 
     LocalDateTime nowLocalDateTime = LocalDateTime.now();
     LocalDateTime bikeReturnDate = sysAdminTest.getBikes().get(0).getReturnDate();
@@ -72,7 +72,7 @@ public class SysAdminTest {
   public void correctReturnBikeDateByWeekTest() {
     Rent singleRentByWeek = RentFactory.createSingleRent(1, ChronoUnit.WEEKS);
 
-    singleRentByWeek.rent(sysAdminTest.getAvailableBikes());
+    Double rentByWeek = singleRentByWeek.rent(sysAdminTest.getAvailableBikes());
 
     LocalDateTime nowLocalDateTime = LocalDateTime.now();
     LocalDateTime bikeReturnDate = sysAdminTest.getBikes().get(0).getReturnDate();
@@ -87,8 +87,8 @@ public class SysAdminTest {
     Rent singleRentByDay = RentFactory.createSingleRent(1, ChronoUnit.DAYS);
     Rent singleRentByWeek = RentFactory.createSingleRent(1, ChronoUnit.WEEKS);
 
-    singleRentByDay.rent(sysAdminTest.getAvailableBikes());
-    singleRentByWeek.rent(sysAdminTest.getAvailableBikes());
+    Double rentByDay = singleRentByDay.rent(sysAdminTest.getAvailableBikes());
+    Double rentByWeek = singleRentByWeek.rent(sysAdminTest.getAvailableBikes());
 
     sysAdminTest.publishReturnDate();
   }

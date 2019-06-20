@@ -1,13 +1,13 @@
 package rents;
 
-import app.Bike;
+import entities.Bike;
+import exceptions.NotAvailableBicycleException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.apache.log4j.Logger;
-import utils.Message;
 
 /**
  * Class to represent a single rent (1 bike) by hour day or week.
@@ -27,10 +27,9 @@ public class SingleRent extends Rent {
     setRate(timeType);
   }
 
+
   /**
    * If this grows we should look for a design to avoid switch.
-   *
-   * @param timeType
    */
   private void setRate(ChronoUnit timeType) {
     switch (timeType) {
@@ -46,26 +45,29 @@ public class SingleRent extends Rent {
     }
   }
 
-
   @Override
   public Double rent(List<Bike> bikes) {
+    if (!Objects.isNull(bikes)) {
       LocalDateTime localDateTime = LocalDateTime.now();
       localDateTime = localDateTime.plus(time, timeType);
-      try {
-        Bike bike = Objects.requireNonNull(getFirstAvailableBike(bikes));
-        bike.setReturnDate(localDateTime);
-        bike.setAvailability(Boolean.FALSE);
+      Optional<Bike> bike = getFirstAvailableBike(bikes);
+      if (bike.isPresent()) {
+        bike.get().setReturnDate(localDateTime);
+        bike.get().setAvailability(Boolean.FALSE);
         return time * rate;
-      } catch (NullPointerException nullPointerException) {
-        throw new NullPointerException(Message.NO_BICYCE_AVAILABLE_MSG + nullPointerException);
+      } else {
+        return null;
       }
+    } else {
+      throw new NotAvailableBicycleException();
+    }
   }
 
-  private Bike getFirstAvailableBike(List<Bike> bikes) {
-    Optional<Bike> bike = bikes.stream()
+  private Optional<Bike> getFirstAvailableBike(
+      List<Bike> bikes) { // Aca le agregue que devuelva un optional por si no hay bicis disponibles
+    return bikes.stream()
         .filter(Bike::getAvailability)
         .findFirst();
-        return bike.orElse(null);
   }
 
 }

@@ -1,4 +1,5 @@
-import app.Bike;
+import entities.Bike;
+import exceptions.NotAvailableBicycleException;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,39 +29,6 @@ public class RentalsTest {
     LOGGER.info("Test data loaded successfully..");
   }
 
-
-  @Test
-  public void rentByHourCalculatorTest() {
-    Rent singleRent = RentFactory.createSingleRent(5, ChronoUnit.HOURS);
-
-    Double expectedTotalRent = 25.0;
-    Double calculatedTotalRent = singleRent.rent(bikes);
-
-    Assert.assertEquals(expectedTotalRent, calculatedTotalRent,
-        "Something went wrong by calculate a Single Rent by Hour.");
-  }
-
-  @Test
-  public void rentByDayCalculatorTest() {
-    Rent singleRent = RentFactory.createSingleRent(2, ChronoUnit.DAYS);
-
-    Double expectedTotalRent = 40.0;
-    Double calculatedTotalRent = singleRent.rent(bikes);
-
-    Assert.assertEquals(expectedTotalRent, calculatedTotalRent,
-        "Something went wrong by calculate a Single Rent by Day.");
-  }
-
-  @Test
-  public void rentByWeekCalculatorTest() {
-    Rent singleRent = RentFactory.createSingleRent(3, ChronoUnit.WEEKS);
-
-    Double expectedTotalRent = 180.0;
-    Double calculatedTotalRent = singleRent.rent(bikes);
-
-    Assert.assertEquals(expectedTotalRent, calculatedTotalRent,
-        "Something went wrong by calculate a Single Rent by Week.");
-  }
 
   @Test
   public void rentComplexCalculatorTest() {
@@ -101,11 +69,10 @@ public class RentalsTest {
         "Something went wrong by calculate a Complex Rent with a Family Promotion Discount.");
   }
 
-  @Test(expectedExceptions = NullPointerException.class)
-  public void bikeUnavailableTest() {
+  @Test(expectedExceptions = NotAvailableBicycleException.class)
+  public void checkNullCollectionOfBikesTest() {
     Rent singleRent = RentFactory.createSingleRent(5, ChronoUnit.HOURS);
 
-    Double expectedTotalRent = 25.0;
     Double calculatedTotalRent = singleRent.rent(null);
   }
 

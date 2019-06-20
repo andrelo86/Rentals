@@ -31,12 +31,23 @@ public class Main {
     ComplexRent complexRent = RentFactory.createComplexRental(rents);
 
     //Execute rents
-    logger
-        .info("You rent a bike for a total of: " + rent4Hours.rent(sysAdmin.getAvailableBikes()));
-    sysAdmin.publishReturnDate();
+    Double rentTotal = rent4Hours.rent(sysAdmin.getAvailableBikes());
+    if (Objects.nonNull(rentTotal)) {
+      logger
+          .info("You rent a bike for a total of: " + rentTotal);
+      sysAdmin.publishReturnDate();
+    } else {
+      logger.info("All bikes are rented.");
+    }
 
-    complexRent.rent(sysAdmin.getAvailableBikes());
-    sysAdmin.publishReturnDate();
+    Double rentComplexTotal = complexRent.rent(sysAdmin.getAvailableBikes());
+    if (Objects.nonNull(rentComplexTotal)) {
+      logger
+          .info("You rent a bike for a total of: " + rentTotal);
+      sysAdmin.publishReturnDate();
+    } else {
+      logger.info("All bikes are rented.");
+    }
 
   }
 

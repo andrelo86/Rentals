@@ -1,6 +1,6 @@
 package rents;
 
-import app.Bike;
+import entities.Bike;
 import java.util.List;
 import java.util.Objects;
 import org.apache.log4j.Logger;
@@ -17,7 +17,8 @@ public abstract class Rent {
   protected Double byDay = Double
       .valueOf(Objects.requireNonNull(Utils.getValueFromPropertiesFile(RATES_FILE, "RATE_BY_DAY")));
   protected Double byWeek = Double
-      .valueOf(Objects.requireNonNull(Utils.getValueFromPropertiesFile(RATES_FILE, "RATE_BY_WEEK")));
+      .valueOf(
+          Objects.requireNonNull(Utils.getValueFromPropertiesFile(RATES_FILE, "RATE_BY_WEEK")));
 
   public Rent() {
   }

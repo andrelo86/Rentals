@@ -11,7 +11,7 @@ public class Message {
   // SysAdmin
   public static final String RETURN_INFO_MSG = "This bike will be returned in: ";
 
-  // Rents
-  public static final String NO_BICYCE_AVAILABLE_MSG = "No bicycles available: ";
+  private Message() {
+  }
 
 }

@@ -16,7 +16,7 @@
 
 
  ## Design
-  **Rents:** Polymorphism
+  **Rents:** Polymorphism, Inheritance
     - Rent: Abstract.
     - SingleRent: Rent. To Rent a bike. We can Rent by hor, day or week.
     - ComplexRent: Rent. To create a compound Rent with one or more SingleRent. We can apply promotions.
@@ -24,7 +24,7 @@
   **RentFactory:** To avoid new() when build Rents.
 
 
- **Promotions:** (Criteria)
+ **Promotions:** Polymorphism, Inheritance (Criteria)
     Kind of Criteria (Java Interface).Family promotion created.
     Can be added further promos.
     All promotions must implement complies to verify if applicable or not.

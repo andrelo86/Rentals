@@ -2,8 +2,8 @@ package exceptions;
 
 public class NotAvailableBicycleException extends RuntimeException {
 
-  public NotAvailableBicycleException(String message) {
-    super(message);
+  public NotAvailableBicycleException() {
+    super(ErrorMessage.NOT_AVAILABLE_BICYCLES);
   }
 
 }

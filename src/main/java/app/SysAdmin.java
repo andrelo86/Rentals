@@ -1,5 +1,6 @@
 package app;
 
+import entities.Bike;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +39,7 @@ public class SysAdmin {
 
   public List<Bike> getAvailableBikes() {
     return bikes.stream()
-        .filter(Bike::getAvailability)
+        .filter(bike -> bike.getAvailability() == Boolean.TRUE)
         .collect(Collectors.toList());
   }
 
@@ -54,11 +55,11 @@ public class SysAdmin {
 
   private List<Bike> getRentedBikes() {
     return bikes.stream()
-          .filter(bike -> !bike.getAvailability())
-          .collect(Collectors.toList());
+        .filter(bike -> !bike.getAvailability())
+        .collect(Collectors.toList());
   }
 
-  public List<Bike> getBikes(){
+  public List<Bike> getBikes() {
     return this.bikes;
   }
 
