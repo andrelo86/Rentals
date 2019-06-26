@@ -47,7 +47,7 @@ public class SingleRent extends Rent {
 
   @Override
   public Double rent(List<Bike> bikes) {
-    if (!Objects.isNull(bikes)) {
+    try {
       LocalDateTime localDateTime = LocalDateTime.now();
       localDateTime = localDateTime.plus(time, timeType);
       Optional<Bike> bike = getFirstAvailableBike(bikes);
@@ -56,10 +56,10 @@ public class SingleRent extends Rent {
         bike.get().setAvailability(Boolean.FALSE);
         return time * rate;
       } else {
-        return null;
+        return null; // Null used to know is there are available bicycles
       }
-    } else {
-      throw new NotAvailableBicycleException();
+    } catch (NullPointerException np) {
+      throw new NotAvailableBicycleException(np);
     }
   }
 

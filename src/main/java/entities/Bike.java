@@ -2,6 +2,9 @@ package entities;
 
 import java.time.LocalDateTime;
 
+/**
+ * Mutable Bike object to modify state to reserved or free.
+ */
 public class Bike {
 
   private LocalDateTime returnDate = null;

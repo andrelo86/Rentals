@@ -30,7 +30,6 @@ public class FamilyPromotion extends Promotion {
             Utils.getValueFromPropertiesFile(Utils.RESOURCES_PATH + CONFIG_FILE, "FAMILY_PROMO")));
   }
 
-
   @Override
   public Boolean comply(List<Rent> rent) {
     return rentsQuantity(rent) >= minRents && rentsQuantity(rent) <= maxRents;
